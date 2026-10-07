@@ -1,0 +1,8 @@
+{
+  "name": "boim",
+  "version": "2.0.1",
+  "description": "BOIM (보임): Korean business directory for AI agents. 2.7M businesses across all industries, 75,000+ public-procurement vendors and open public bids. Remote MCP, read-only, no auth.",
+  "mcpServers": {
+    "boim": { "httpUrl": "https://boim.io/api/mcp" }
+  }
+}
