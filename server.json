@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.boim/vendors",
+  "title": "BOIM Korea Vendor Directory",
+  "description": "BOIM(보임): Korean businesses (2.7M, all industries), public-procurement vendors and live public bids.",
+  "websiteUrl": "https://boim.io/connect/",
+  "version": "2.0.1",
+  "icons": [
+    {
+      "src": "https://boim.io/assets/favicon.svg",
+      "mimeType": "image/svg+xml"
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://boim.io/api/mcp"
+    }
+  ]
+}
