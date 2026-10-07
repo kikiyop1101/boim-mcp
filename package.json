@@ -1,0 +1,14 @@
+{
+  "name": "boim-mcp",
+  "version": "2.0.1",
+  "private": true,
+  "description": "BOIM (보임) remote MCP server — find Korean businesses (2.7M, all industries), public-procurement vendors and open public bids. Read-only, no auth: https://boim.io/api/mcp",
+  "homepage": "https://boim.io/connect/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kikiyop1101/boim-mcp.git"
+  },
+  "license": "MIT",
+  "author": "Public identity Co., Ltd. <public-id@naver.com>",
+  "keywords": ["mcp", "mcp-server", "remote-mcp", "korea", "business-directory", "public-procurement", "public-bids"]
+}
