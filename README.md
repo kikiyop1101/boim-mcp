@@ -43,7 +43,9 @@ claude mcp add --transport http boim https://boim.io/api/mcp
 Settings → Security and login → turn on **Developer mode** → create an app/connector with the URL `https://boim.io/api/mcp`, authentication **None**. Pick it in a new chat.
 
 ### Cursor
-[Add to Cursor](https://cursor.com/en/install-mcp?name=boim&config=eyJ1cmwiOiJodHRwczovL2JvaW0uaW8vYXBpL21jcCJ9) — or add to `~/.cursor/mcp.json`:
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=boim&config=eyJ1cmwiOiJodHRwczovL2JvaW0uaW8vYXBpL21jcCJ9)
+
+Or add to `~/.cursor/mcp.json` (this repository's [`mcp.json`](mcp.json) and [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json) hold the same config):
 ```json
 {
   "mcpServers": {
