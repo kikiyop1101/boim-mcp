@@ -29,6 +29,14 @@ Korean businesses across all industries (2.7M), public-procurement vendors (75,0
 
 **Free vs. full.** Without a key each tool returns up to 5 results, plus `not_shown` (how many more) and `more` (a public web list anyone can open). Full results are available with a BOIM API key (`Authorization: Bearer …` or `?key=`) — contact public-id@naver.com.
 
+**Evidence and citation.** Vendor results carry `checks` (what was verified, by which public source, on which date — e.g. National Tax Service business status, Public Procurement Service deliveries) and `cite` (a ready-made source line with the card URL). `get_vendor` also returns `similar` — up to 5 businesses with the same main item (not a ranking). Tool names and inputs do not change; new response fields are only added. Full spec: [`openapi.json`](https://boim.io/openapi.json) · limits and errors: https://boim.io/connect/ · changes: [`changelog.md`](https://boim.io/changelog.md).
+
+**Agent skill.** Teach a coding agent (Claude Code, Cursor, Codex…) when and how to use BOIM:
+```bash
+npx skills add kikiyop1101/boim-mcp
+```
+The skill lives in [`skills/boim/SKILL.md`](skills/boim/SKILL.md).
+
 ## Connect
 
 ### Claude (claude.ai · Claude Desktop — Pro/Max)
@@ -97,6 +105,8 @@ Not published: representative names, street addresses, business registration num
 
 - MCP 주소: `https://boim.io/api/mcp` (읽기 전용, 인증 없음, 무료는 도구마다 5건 + 전체 목록 주소)
 - 순서는 관련도 → AI 준비 구간 → 같은 구간은 날마다 섞기입니다. 실적 많은 순이나 유료 순위가 아닙니다.
+- 업체 결과마다 확인 근거(`checks` — 무엇을·어디서·언제 확인)와 답에 붙일 출처 한 줄(`cite`)이 붙고, `get_vendor`는 같은 품명 업체 5곳(`similar`)도 줍니다. 설명서 https://boim.io/openapi.json · 변경 기록 https://boim.io/changelog.md
+- 코딩 에이전트용 사용 안내(스킬): `npx skills add kikiyop1101/boim-mcp`
 - 업체는 boim.io에서 무료로 등록하고(국세청 사업자 확인 뒤 자동 게시), AI 준비도 점수를 가입 없이 확인할 수 있습니다: https://boim.io/ready/
 - 연결 방법(클로드·ChatGPT): https://boim.io/connect/
 
