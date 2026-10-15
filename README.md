@@ -88,6 +88,30 @@ or `.vscode/mcp.json`:
 Any agent that can fetch a URL can search:
 `https://boim.io/search/?q=세종 미용실&format=json` (also `&format=md`, or `Accept: text/markdown`). Site summary for LLMs: https://boim.io/llms.txt
 
+### Use BOIM as your agent's web-search backend (just change the URL)
+BOIM answers the common search-API request shapes, so many agent tools can point their search setting at BOIM without code changes. Answers come from BOIM data only (Korean businesses, vendor cards with public procurement records, live public bid notices) — no general web results. Auth headers are accepted and ignored.
+
+| Tool / SDK | Setting | Value | Checked |
+|---|---|---|---|
+| `tavily-python` | `TavilyClient(api_key="any", api_base_url=…)` | `https://boim.io/api/v1` | ✅ 2026-10-14 (search · extract) |
+| `exa-py` | `Exa(api_key="any", base_url=…)` | `https://boim.io/api/v1` | ✅ 2026-10-14 (search) |
+| `firecrawl-py` | `Firecrawl(api_key="any", api_url=…)` | `https://boim.io` | ✅ 2026-10-14 (search · scrape) |
+| `a2a-sdk` (A2A 1.0) | `create_client("https://boim.io")` | Agent Card `https://boim.io/.well-known/agent-card.json` | ✅ 2026-10-14 (SendMessage) |
+| Hermes Agent | `TAVILY_BASE_URL` or `SEARXNG_URL` | `https://boim.io/api/v1` | ✅ 2026-10-14 (our own bots) |
+| OpenClaw (SearXNG plugin) | `baseUrl` / `SEARXNG_BASE_URL` | `https://boim.io/api/v1` | metasearch JSON shape |
+| Open WebUI | `SEARXNG_QUERY_URL` · `TAVILY_API_BASE_URL` · `FIRECRAWL_API_BASE_URL` | `https://boim.io/api/v1/search?q=<query>` · `https://boim.io/api/v1` · `https://boim.io` | request shape |
+| LangChain | `SearxSearchWrapper(searx_host=…)` · Tavily `api_base_url` · Exa `exa_base_url` · `FireCrawlLoader(api_url=…)` | `https://boim.io/api/v1/search` · `https://boim.io/api/v1` · `https://boim.io` | request shape |
+| LibreChat | `searxngInstanceUrl` · `firecrawlApiUrl` | `https://boim.io/api/v1` · `https://boim.io` | request shape |
+
+Endpoints (all CORS `*`, free, read-only):
+- `POST /api/v1/search` `{"query" | "q" | "objective" | "search_queries", "max_results" | "numResults" | "num" | "limit" | "count"}` → one response carrying `results[]` (title, url, content, score, id, text, snippet, highlights), `organic[]` (title, link, snippet), `data[]` and `web.results[]`. Also at `POST /search`.
+- `GET /api/v1/search?q=…&format=json` → metasearch shape `results[]` (title, url, content, engine, score).
+- `POST /api/v2/search` (also `/v2/search`) → `{success, data: {web: [...]}}` · `GET /api/res/v1/web/search?q=` → `web.results[]`.
+- Read: `POST /api/v1/extract {urls}` · `/api/v1/contents {urls|ids}` · `/api/v1/scrape`, `/v2/scrape {url}` — BOIM vendor cards and search URLs only.
+- A2A 1.0 JSON-RPC: `POST https://boim.io/api/a2a` (`SendMessage`; legacy `message/send` too) → markdown answer + JSON results.
+- NLWeb-style: `GET https://boim.io/ask?query=세종+미용실&streaming=0` → `results[]` (url, name, site, score, description, schema_object). MCP is also reachable at `https://boim.io/mcp`.
+- OpenAPI: https://boim.io/openapi.json
+
 ## Data sources
 
 All data comes from Korean government open data on data.go.kr (usage terms: no restriction) and is refreshed daily (businesses monthly):
@@ -109,6 +133,7 @@ Not published: representative names, street addresses, business registration num
 - 코딩 에이전트용 사용 안내(스킬): `npx skills add kikiyop1101/boim-mcp`
 - 업체는 boim.io에서 무료로 등록하고(국세청 사업자 확인 뒤 자동 게시), AI 준비도 점수를 가입 없이 확인할 수 있습니다: https://boim.io/ready/
 - 연결 방법(클로드·ChatGPT): https://boim.io/connect/
+- 에이전트의 웹 검색 도구를 보임으로: 검색 설정의 주소만 `https://boim.io/api/v1`(읽기·크롤 주소는 `https://boim.io`)로 바꾸면 보임 데이터로 답합니다(위 표). A2A 에이전트 카드 `https://boim.io/.well-known/agent-card.json` · 질문 창구 `https://boim.io/ask?query=`
 
 ## Terms
 
