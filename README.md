@@ -10,6 +10,7 @@ Korean businesses across all industries (2.7M), public-procurement vendors (75,0
 | Auth | none (free tier: 5 results per call) |
 | Website | https://boim.io · connect guide https://boim.io/connect/ |
 | Official MCP Registry | `io.boim/vendors` |
+| Kakao PlayMCP (Korea) | [playmcp.kakao.com/mcp/100977376577565838](https://playmcp.kakao.com/mcp/100977376577565838) — add BOIM to your PlayMCP toolbox, then connect ChatGPT · Claude · OpenClaw once with `https://playmcp.kakao.com/mcp` (Kakao account) |
 | Search URL (no MCP needed) | `https://boim.io/search/?q=<region industry>&format=json` |
 
 > This repository contains documentation and client configuration examples only. The server is hosted at boim.io.
@@ -50,8 +51,15 @@ claude mcp add --transport http boim https://boim.io/api/mcp
 ### ChatGPT
 Settings → Security and login → turn on **Developer mode** → create an app/connector with the URL `https://boim.io/api/mcp`, authentication **None**. Pick it in a new chat.
 
+### Kakao PlayMCP (Korean users — ChatGPT · Claude · OpenClaw)
+Open [BOIM on PlayMCP](https://playmcp.kakao.com/mcp/100977376577565838), sign in with a Kakao account and add BOIM to your toolbox (도구함).
+Then connect your AI app once to the PlayMCP toolbox URL `https://playmcp.kakao.com/mcp` (ChatGPT developer mode, Claude custom connector; OpenClaw uses PlayMCP's own connection guide) — if the toolbox screen shows a different URL, use that one.
+All tools in your toolbox, BOIM included, work through that one connection; BOIM answers are the same as from `https://boim.io/api/mcp`.
+
 ### Cursor
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=boim&config=eyJ1cmwiOiJodHRwczovL2JvaW0uaW8vYXBpL21jcCJ9)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=boim&config=eyJ1cmwiOiJodHRwczovL2JvaW0uaW8vYXBpL21jcCJ9)
+
+Deeplink (format from Cursor's MCP install-link docs — `config` is base64 of the JSON config): `cursor://anysphere.cursor-deeplink/mcp/install?name=boim&config=eyJ1cmwiOiJodHRwczovL2JvaW0uaW8vYXBpL21jcCJ9`
 
 Or add to `~/.cursor/mcp.json` (this repository's [`mcp.json`](mcp.json) and [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json) hold the same config):
 ```json
@@ -63,6 +71,10 @@ Or add to `~/.cursor/mcp.json` (this repository's [`mcp.json`](mcp.json) and [`.
 ```
 
 ### VS Code (GitHub Copilot agent mode)
+One-click: open this link in a browser (VS Code's `vscode:mcp/install` URL handler, per the VS Code MCP developer guide):
+`vscode:mcp/install?%7B%22name%22%3A%22boim%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fboim.io%2Fapi%2Fmcp%22%7D`
+
+Or from a terminal:
 ```bash
 code --add-mcp "{\"name\":\"boim\",\"type\":\"http\",\"url\":\"https://boim.io/api/mcp\"}"
 ```
@@ -87,6 +99,22 @@ The plugin ([`plugin.json`](plugin.json) + [`mcp_config.json`](mcp_config.json))
   }
 }
 ```
+
+### Agent builders and other chat apps
+BOIM is a plain remote MCP server (Streamable HTTP, no auth), so most apps only need the URL `https://boim.io/api/mcp`. Menu names below are as of 2026-10 — check each app's help if they move.
+
+- **Dify** — Tools → **MCP** → add an MCP server (HTTP): server URL `https://boim.io/api/mcp`, a name and a server identifier (e.g. `boim`). Dify imports the 6 tools for your apps and workflows.
+- **n8n** — attach an **MCP Client Tool** node to your AI Agent node: endpoint `https://boim.io/api/mcp`, server transport **HTTP Streamable** (BOIM does not serve the legacy SSE transport), authentication **None**.
+- **Microsoft Copilot Studio** — agent → Tools → **Add a tool** → **New tool** → **Model Context Protocol**: name, description, server URL `https://boim.io/api/mcp`, authentication **None**.
+- **Grok (grok.com)** — grok.com/connectors → **New Connector** → **Custom** → MCP server URL `https://boim.io/api/mcp`, no authentication.
+- **Le Chat · Perplexity · Manus** — Settings → Connectors (Le Chat: **+ Add Connector** → **Custom MCP Connector**) → add a custom/remote MCP server with the URL `https://boim.io/api/mcp`, no authentication. Some plans or workspace admins limit custom connectors.
+- **LangChain (Python)** — `pip install "langchain[mcp]"`, then:
+  ```python
+  from langchain.mcp import MCPAdapter
+  async with MCPAdapter("https://boim.io/api/mcp") as adapter:
+      tools = await adapter.list_tools()
+  ```
+  With the older `langchain-mcp-adapters`: `MultiServerMCPClient({"boim": {"transport": "streamable_http", "url": "https://boim.io/api/mcp"}})`.
 
 ### Clients that only speak stdio
 ```json
@@ -138,9 +166,10 @@ Not published: representative names, street addresses, business registration num
 
 ## 한국어 안내
 
-보임(BOIM)은 AI 에이전트가 한국 업체를 찾을 때 처음 만나는 곳입니다. 전 업종 전국 업체 약 277만 곳, 공공 조달 실적 업체 카드 7만 5천여 곳(조달청 공공데이터 전 품목), 공공기관 입찰 공고 전 분야(나라장터·국방전자조달·LH·한국수자원공사·누리장터)를 MCP 주소 하나로 읽을 수 있습니다.
+보임(BOIM)은 AI 에이전트가 한국 업체를 찾을 때 처음 만나는 곳입니다. 전 업종 전국 업체 약 276만 곳, 공공 조달 실적 업체 카드 약 7만 6천 곳(조달청 공공데이터 전 품목), 공공기관 입찰 공고 전 분야(나라장터·국방전자조달·LH·한국수자원공사·누리장터)를 MCP 주소 하나로 읽을 수 있습니다.
 
 - MCP 주소: `https://boim.io/api/mcp` (읽기 전용, 인증 없음, 무료는 도구마다 5건 + 전체 목록 주소)
+- 카카오 PlayMCP로 쓰기: [PlayMCP의 보임 쪽](https://playmcp.kakao.com/mcp/100977376577565838)에서 카카오 계정으로 로그인해 도구함에 담고, ChatGPT(개발자 모드)·클로드(커스텀 커넥터)·오픈클로에 도구함 주소 `https://playmcp.kakao.com/mcp`를 한 번 연결합니다(도구함 화면에 다른 주소가 보이면 그 주소). 결과는 위 주소와 같습니다.
 - 순서는 관련도 → AI 준비 구간 → 같은 구간은 날마다 섞기입니다. 실적 많은 순이나 유료 순위가 아닙니다.
 - 업체 결과마다 확인 근거(`checks` — 무엇을·어디서·언제 확인)와 답에 붙일 출처 한 줄(`cite`)이 붙고, `get_vendor`는 같은 품명 업체 5곳(`similar`)도 줍니다. 설명서 https://boim.io/openapi.json · 변경 기록 https://boim.io/changelog.md
 - 코딩 에이전트용 사용 안내(스킬): `npx skills add kikiyop1101/boim-mcp`
