@@ -75,6 +75,19 @@ or `.vscode/mcp.json`:
 }
 ```
 
+### Antigravity (CLI · app)
+```bash
+agy plugin install https://github.com/kikiyop1101/boim-mcp
+```
+The plugin ([`plugin.json`](plugin.json) + [`mcp_config.json`](mcp_config.json)) adds the remote server and the [`boim` skill](skills/boim/SKILL.md). Or add the server to `~/.gemini/config/mcp_config.json` yourself:
+```json
+{
+  "mcpServers": {
+    "boim": { "serverUrl": "https://boim.io/api/mcp" }
+  }
+}
+```
+
 ### Clients that only speak stdio
 ```json
 {

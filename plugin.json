@@ -1,0 +1,27 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "boim",
+  "displayName": "BOIM (보임) — Korean business directory",
+  "version": "2.0.1",
+  "description": "Find Korean businesses (2.7M, all industries), public-procurement vendors and open public bids through the BOIM remote MCP server. Read-only, no auth.",
+  "author": {
+    "name": "Public identity Co., Ltd.",
+    "email": "public-id@naver.com"
+  },
+  "homepage": "https://boim.io/connect/",
+  "repository": "https://github.com/kikiyop1101/boim-mcp",
+  "license": "MIT",
+  "logo": "assets/logo-400.png",
+  "keywords": [
+    "korea",
+    "business directory",
+    "public procurement",
+    "public bids",
+    "boim"
+  ],
+  "suggestedPrompts": [
+    "세종 보람동 미용실 찾아 줘",
+    "Find vendors in Korea with public-procurement records for traffic-safety signs",
+    "Open Korean public tenders about school-zone safety"
+  ]
+}

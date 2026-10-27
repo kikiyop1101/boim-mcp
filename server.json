@@ -4,7 +4,11 @@
   "title": "BOIM Korea Vendor Directory",
   "description": "BOIM(보임): Korean businesses (2.7M, all industries), public-procurement vendors and live public bids.",
   "websiteUrl": "https://boim.io/connect/",
-  "version": "2.0.1",
+  "repository": {
+    "url": "https://github.com/kikiyop1101/boim-mcp",
+    "source": "github"
+  },
+  "version": "2.0.2",
   "icons": [
     {
       "src": "https://boim.io/assets/favicon.svg",

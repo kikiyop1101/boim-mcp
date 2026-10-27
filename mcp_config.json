@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "boim": {
+      "serverUrl": "https://boim.io/api/mcp"
+    }
+  }
+}
