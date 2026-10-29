@@ -1,0 +1,27 @@
+{
+  "name": "boim",
+  "displayName": "BOIM — Korean business finder",
+  "version": "2.0.1",
+  "description": "Find Korean businesses (2.7M, all industries), public-procurement vendors and open public bids through BOIM's read-only remote MCP server, with a skill on which tool to use and how to cite results. 한국 업체·조달 업체·공공 입찰 공고 찾기(읽기 전용, 인증 없음).",
+  "author": {
+    "name": "Public identity Co., Ltd.",
+    "email": "public-id@naver.com",
+    "url": "https://www.public-id.co.kr"
+  },
+  "homepage": "https://boim.io/connect/",
+  "repository": "https://github.com/kikiyop1101/boim-mcp",
+  "license": "MIT",
+  "keywords": [
+    "korea",
+    "business-directory",
+    "public-procurement",
+    "public-bids",
+    "mcp",
+    "boim"
+  ],
+  "icon": "./assets/logo-400.png",
+  "documentationUrl": "https://boim.io/connect/",
+  "supportUrl": "https://github.com/kikiyop1101/boim-mcp/issues",
+  "privacyPolicyUrl": "https://boim.io/privacy/",
+  "termsOfServiceUrl": "https://boim.io/terms/"
+}

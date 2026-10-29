@@ -48,6 +48,16 @@ Customize → Connectors → **+ Add** → **Add custom connector** → name `BO
 claude mcp add --transport http boim https://boim.io/api/mcp
 ```
 
+### Claude Code plugin (MCP server + skill)
+This repository is also a Claude Code plugin marketplace. Add it once, then install the `boim` plugin:
+```bash
+claude plugin marketplace add kikiyop1101/boim-mcp
+claude plugin install boim@boim-mcp
+```
+Inside a session: `/plugin marketplace add kikiyop1101/boim-mcp`, then `/plugin install boim@boim-mcp`.
+
+The plugin ([`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) + [`.mcp.json`](.mcp.json)) adds two things: the remote MCP server `https://boim.io/api/mcp` (read-only, no authentication) and the [`boim` skill](skills/boim/SKILL.md). It has no hooks, commands or local code. Your search words go only to boim.io, and the plugin keeps no data of its own.
+
 ### ChatGPT
 Settings → Security and login → turn on **Developer mode** → create an app/connector with the URL `https://boim.io/api/mcp`, authentication **None**. Pick it in a new chat.
 
@@ -173,6 +183,7 @@ Not published: representative names, street addresses, business registration num
 - 순서는 관련도 → AI 준비 구간 → 같은 구간은 날마다 섞기입니다. 실적 많은 순이나 유료 순위가 아닙니다.
 - 업체 결과마다 확인 근거(`checks` — 무엇을·어디서·언제 확인)와 답에 붙일 출처 한 줄(`cite`)이 붙고, `get_vendor`는 같은 품명 업체 5곳(`similar`)도 줍니다. 설명서 https://boim.io/openapi.json · 변경 기록 https://boim.io/changelog.md
 - 코딩 에이전트용 사용 안내(스킬): `npx skills add kikiyop1101/boim-mcp`
+- 클로드 코드 플러그인(MCP 서버+스킬): `claude plugin marketplace add kikiyop1101/boim-mcp` 다음 `claude plugin install boim@boim-mcp`
 - 업체는 boim.io에서 무료로 등록하고(국세청 사업자 확인 뒤 자동 게시), AI 준비도 점수를 가입 없이 확인할 수 있습니다: https://boim.io/ready/
 - 연결 방법(클로드·ChatGPT): https://boim.io/connect/
 - 에이전트의 웹 검색 도구를 보임으로: 검색 설정의 주소만 `https://boim.io/api/v1`(읽기·크롤 주소는 `https://boim.io`)로 바꾸면 보임 데이터로 답합니다(위 표). A2A 에이전트 카드 `https://boim.io/.well-known/agent-card.json` · 질문 창구 `https://boim.io/ask?query=`

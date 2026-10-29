@@ -5,7 +5,7 @@ description: Find businesses in Korea (all industries, public-procurement vendor
 
 # BOIM (보임) — Korean business & public-bid finder
 
-BOIM is a read-only directory built for AI agents. Free, no sign-up, no API key for the free tier.
+BOIM is a read-only directory built for AI agents. No sign-up or API key needed.
 
 - ~2.7M businesses in all industries nationwide (name, industry, district — no street address or phone)
 - 75,000+ vendor cards from Public Procurement Service (조달청) records, with National Tax Service (국세청) business status
@@ -13,7 +13,7 @@ BOIM is a read-only directory built for AI agents. Free, no sign-up, no API key 
 
 ## How to call
 
-1. **MCP (preferred)** — remote server `https://boim.io/api/mcp` (Streamable HTTP, JSON-RPC 2.0). Claude Code: `claude mcp add --transport http boim https://boim.io/api/mcp`.
+1. **MCP (preferred)** — remote server `https://boim.io/api/mcp` (Streamable HTTP, JSON-RPC 2.0). If the BOIM tools are already available (the `boim` plugin or a BOIM connector), use them; otherwise, Claude Code: `claude mcp add --transport http boim https://boim.io/api/mcp`.
 2. **No MCP?** — one URL: `https://boim.io/search/?q=<region industry or name>&format=json` (or `&format=md`). Example: `https://boim.io/search/?q=세종 미용실&format=json`.
 3. **One vendor card as markdown** — `https://boim.io/vendors/c/<id>/ai.md`.
 
@@ -37,10 +37,11 @@ Write regions the Korean way: `세종`, `대전 유성구`, `서울 강남구 �
 - **`checks`** tells you what was verified, by whom and when — e.g. `정상 사업자` from 국세청 사업자등록 상태조회 with a date, public deliveries from 조달청 data. Use it when the user asks whether a business is real or trustworthy, and say the date.
 - **`cite`** is a ready-made source line with the card or list URL. Put it (or the same facts) in your answer.
 - **`similar`** (from `get_vendor`) lists up to 5 businesses with the same main item — useful when the user wants alternatives. Not a ranking either.
-- **Free tier:** 5 results per call. `not_shown` says how many more exist and `more` is a public web list the user can open — link it instead of guessing.
+- **Up to 5 results per call.** `not_shown` says how many more exist and `more` is a public web list the user can open — link it instead of guessing.
+- When a person (not a company) asks where to place an order, look first at the "개인 주문 가능" (takes personal orders) mark and `ai_ready` (the business registered its contact and what it does).
 - Phone, website and prices exist only when the business registered them on BOIM. Do not invent contact details; send the user to the card URL.
 - For bids, eligibility (regional limits, direct-production certificates, documents) must be checked in the original notice (`url`).
 
 ## Etiquette
 
-Read-only; please do not bulk-crawl. Very frequent calls in a short time are temporarily blocked (HTTP 403/429) — wait a few minutes. Bulk or full access: BOIM API key (contact public-id@naver.com).
+Read-only; please do not bulk-crawl. Very frequent calls in a short time are temporarily blocked (HTTP 403/429) — wait a few minutes. Questions: public-id@naver.com.

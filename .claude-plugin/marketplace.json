@@ -1,0 +1,17 @@
+{
+  "name": "boim-mcp",
+  "description": "BOIM (boim.io) for Claude Code: the read-only BOIM remote MCP server plus a usage skill for finding Korean businesses, public-procurement vendors and open public bids.",
+  "owner": {
+    "name": "Public identity Co., Ltd.",
+    "email": "public-id@naver.com",
+    "url": "https://www.public-id.co.kr"
+  },
+  "plugins": [
+    {
+      "name": "boim",
+      "source": "./",
+      "category": "search",
+      "tags": ["korea", "business-directory", "public-procurement", "public-bids", "mcp"]
+    }
+  ]
+}
