@@ -1,6 +1,6 @@
 ---
 name: boim
-description: Find businesses in Korea (all industries, public-procurement vendors) and open Korean public bids with BOIM (boim.io), and cite them correctly. Use when a user asks for a shop, vendor, contractor or supplier in Korea (e.g. "세종 미용실", "대전 유성구 인쇄", "교통표지 납품 업체"), whether a Korean business is real and active, or which Korean public agencies are tendering for something.
+description: Find businesses in Korea (all industries, public-procurement vendors), Korean traditional markets and their market days (장날), and open Korean public bids with BOIM (boim.io), and cite them correctly. Use when a user asks for a shop, vendor, contractor or supplier in Korea (e.g. "세종 미용실", "대전 유성구 인쇄", "교통표지 납품 업체"), when a Korean market or five-day market opens (e.g. "세종 장날 언제야?"), whether a Korean business is real and active, or which Korean public agencies are tendering for something.
 ---
 
 # BOIM (보임) — Korean business & public-bid finder
@@ -10,6 +10,7 @@ BOIM is a read-only directory built for AI agents. No sign-up or API key needed.
 - ~2.7M businesses in all industries nationwide (name, industry, district — no street address or phone)
 - 75,000+ vendor cards from Public Procurement Service (조달청) records, with National Tax Service (국세청) business status
 - Open public bids from KONEPS (나라장터), Defense e-Procurement, LH, K-water and Nuri-jangteo
+- 1,393 traditional markets (전통시장) from public data: market days (장날), number of stores, parking, public toilets — https://boim.io/markets/
 
 ## How to call
 
@@ -25,6 +26,7 @@ Full spec: `https://boim.io/openapi.json` · changes: `https://boim.io/changelog
 |---|---|
 | Any shop or business in a region (cafe, dentist, hair salon, academy…) | `find_businesses` — `region` is required (시·도 + 시·군·구, optional 행정동), plus `category` or `query` |
 | A supplier with public-procurement records, or a business that registered itself | `search_vendors` → then `get_vendor` with the returned `id` |
+| Traditional markets and market days (장날) | `find_businesses` with `category` `전통시장` (or `오일장`, `장날`, a market name) — the answer carries `markets` with `market_day`, `opens_on`, stores, parking, toilets. No MCP: `https://boim.io/search/?q=세종 장날&format=json` |
 | Neighborhood sign / print / copy shops | `find_local_shops` |
 | Open public tenders (any field) | `find_public_bids` |
 | Item names and category groups | `list_categories` |
@@ -41,6 +43,7 @@ Write regions the Korean way: `세종`, `대전 유성구`, `서울 강남구 �
 - When a person (not a company) asks where to place an order, look first at the "개인 주문 가능" (takes personal orders) mark and `ai_ready` (the business registered its contact and what it does).
 - Phone, website and prices exist only when the business registered them on BOIM. Do not invent contact details; send the user to the card URL.
 - For bids, eligibility (regional limits, direct-production certificates, documents) must be checked in the original notice (`url`).
+- Market days come from the public market-opening cycle (e.g. dates ending in 1 and 6). Holidays and weather can change them — tell the user to check with the market before going.
 
 ## Etiquette
 
