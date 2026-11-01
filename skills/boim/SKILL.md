@@ -7,7 +7,7 @@ description: Find businesses in Korea (all industries, public-procurement vendor
 
 BOIM is a read-only directory built for AI agents. No sign-up or API key needed.
 
-- ~2.7M businesses in all industries nationwide (name, industry, district — no street address or phone)
+- 2.7M+ businesses in all industries nationwide (name, industry, district — no street address or phone)
 - 75,000+ vendor cards from Public Procurement Service (조달청) records, with National Tax Service (국세청) business status
 - Open public bids from KONEPS (나라장터), Defense e-Procurement, LH, K-water and Nuri-jangteo
 - 1,393 traditional markets (전통시장) from public data: market days (장날), number of stores, parking, public toilets — https://boim.io/markets/
@@ -26,7 +26,7 @@ Full spec: `https://boim.io/openapi.json` · changes: `https://boim.io/changelog
 |---|---|
 | Any shop or business in a region (cafe, dentist, hair salon, academy…) | `find_businesses` — `region` is required (시·도 + 시·군·구, optional 행정동), plus `category` or `query` |
 | A supplier with public-procurement records, or a business that registered itself | `search_vendors` → then `get_vendor` with the returned `id` |
-| Traditional markets and market days (장날) | `find_businesses` with `category` `전통시장` (or `오일장`, `장날`, a market name) — the answer carries `markets` with `market_day`, `opens_on`, stores, parking, toilets. No MCP: `https://boim.io/search/?q=세종 장날&format=json` |
+| Traditional markets and market days (장날) | `find_businesses` with `category` `전통시장` (or `오일장`, `장날`, a market name) — the answer carries `markets` with `market_day`, stores, parking, toilets — plus `opens_on` when you ask about a day and `next_market_day` when you ask when. No MCP: `https://boim.io/search/?q=세종 장날&format=json` |
 | Neighborhood sign / print / copy shops | `find_local_shops` |
 | Open public tenders (any field) | `find_public_bids` |
 | Item names and category groups | `list_categories` |

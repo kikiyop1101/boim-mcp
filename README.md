@@ -1,7 +1,7 @@
 # BOIM (보임) — Korean Business Directory MCP Server
 
 **Remote MCP server for AI agents that need to find businesses in Korea.**
-Korean businesses across all industries (2.7M), public-procurement vendors (75,000+), open public bids and traditional markets with market days (1,393) — read-only, no sign-up, no API key for the free tier.
+Korean businesses across all industries (2.7M+), public-procurement vendors (75,000+), open public bids and traditional markets with market days (1,393) — read-only, no sign-up, no API key for the free tier.
 
 | | |
 |---|---|
@@ -19,7 +19,7 @@ Korean businesses across all industries (2.7M), public-procurement vendors (75,0
 
 | Tool | What it does | Example question |
 |---|---|---|
-| `find_businesses` | All industries nationwide (~2.7M businesses, 247 sub-categories) by province / city·district (시·도·시군구, optional 행정동) and industry or name. Name, industry and district only (no street address or phone). When the industry is a market word (전통시장 · 오일장 · 장날 · "traditional market"), the answer also carries `markets` — public traditional markets in that area with market days, stores, parking and toilets. | "세종 보람동 미용실 찾아 줘" (hair salons in Boram-dong, Sejong) · "세종 장날 언제야?" |
+| `find_businesses` | All industries nationwide (2.7M+ businesses, 247 sub-categories) by province / city·district (시·도·시군구, optional 행정동) and industry or name. Name, industry and district only (no street address or phone). When the industry is a market word (전통시장 · 오일장 · 장날 · "traditional market"), the answer also carries `markets` — public traditional markets in that area with market days, stores, parking and toilets. | "세종 보람동 미용실 찾아 줘" (hair salons in Boram-dong, Sejong) · "세종 장날 언제야?" |
 | `search_vendors` | Vendor cards built from Public Procurement Service (조달청) data — every item category, last 12 months of public-procurement records — plus information registered by the businesses themselves. Filter by item, category group, region, name or certification. | "세종시에서 안내판 납품 실적이 있는 업체 알려 줘" |
 | `get_vendor` | Full vendor card: records and amounts by item, main buyer agencies and regions, contract types, unit-price range, certifications, sources, update date and data limits. | "그 업체의 품명별 실적과 주요 납품 기관 보여 줘" |
 | `find_public_bids` | Open public bids in all fields from KONEPS (나라장터), Defense e-Procurement (국방전자조달), LH, K-water (한국수자원공사) and Nuri-jangteo (누리장터), refreshed twice a day, closest deadline first, with source links. | "경기도 교통안전시설 입찰 공고 중 마감이 가까운 것 알려 줘" |
@@ -179,7 +179,7 @@ Endpoints (all CORS `*`, free, read-only):
 
 ## Data sources
 
-All data comes from Korean government open data on data.go.kr (usage terms: no restriction) and is refreshed daily (businesses monthly):
+Data comes from Korean government open data on data.go.kr (usage terms: no restriction), plus the information businesses register on BOIM themselves. Refreshed daily (businesses and traditional markets monthly):
 
 - Small Enterprise and Market Service store data (소상공인시장진흥공단 상가(상권)정보, 15012005) — all-industry businesses
 - Public Procurement Service shopping-mall items, delivery requests and contracts (조달청 종합쇼핑몰 품목정보 15129471 · 계약정보 15129427) — vendor cards
@@ -187,7 +187,7 @@ All data comes from Korean government open data on data.go.kr (usage terms: no r
 - National Tax Service business status (국세청 사업자등록 상태) — closed businesses are removed
 - Traditional markets and market days (전통시장·장날, 1,393 markets — https://boim.io/markets/): Small Enterprise and Market Service national traditional-market standard data (전국전통시장표준데이터 15012894), market facilities (전통시장현황 15052837) and Onnuri gift-certificate merchant counts counted by market name (온누리상품권 가맹점 현황 3060079)
 
-Not published: representative names, street addresses, business registration numbers, procurement officers' contact details.
+Not published: representative names, street addresses, business registration numbers, procurement officers' contact details. Exceptions: traditional markets are public facilities, so their public road-name address and main landline are shown; a business that registers itself shows the contact details it entered.
 
 ## 한국어 안내
 
